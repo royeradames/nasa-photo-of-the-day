@@ -11,15 +11,11 @@ function App() {
 
   function pickImgFromCollection (){
     return(
-      <div className = 'imgs-collection' >
-        {
           //react knows how to unpack an array automatically 
           imgsCollection.map((imgUrl) => {
             debugger
             return <img src={imgUrl} alt='Previos Nasa daily' key={imgUrl}></img>
           })
-        }
-      </div>
     )
   }
   return (
