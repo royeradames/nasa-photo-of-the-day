@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function OtherImgs({pickImgFromImgsCollection}){
+export default function OtherImgs({pickImgFromCollection}){
 
     return(
-        pickImgFromImgsCollection()
+        pickImgFromCollection()
     )
 }
