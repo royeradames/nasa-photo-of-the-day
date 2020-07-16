@@ -5,42 +5,55 @@ import "./App.css";
 import EveryDayImg from './components/EveryDayImg'
 import OtherImgs from './components/OtherImgs'
 import Footer from "./components/footer"
+
+//backup data
+import marsPhotos from './backup-data/mars-photos'
+import BackupDailyImg from './backup-data/Daily-Pod-Img'
 function App() {
-  //dummy data
-  const nasaEveryImgURL = 'https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/iss063e039001.jpg'
+ 
+  const [imgsCollection, setImgsCollection] = useState([])
+  const [dailyImg, setdailyImg] = useState({})
 
-  // const imgsCollection = ['https://www.nasa.gov/sites/default/files/styles/image_card_4x3_ratio/public/thumbnails/image/pia23984-16.jpg', 'https://www.nasa.gov/sites/default/files/styles/image_card_4x3_ratio/public/thumbnails/image/50045549941_b8aa2c8417_o.png',  'https://www.nasa.gov/sites/default/files/styles/image_card_4x3_ratio/public/thumbnails/image/iss063e034203.jpg']
-
-  // const [nasaEveryImgURL,setNasaEveryImgURL] = useState()
-  const [imgsCollection, setImgsCollection] = useState()
   const marsImgsLink = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2015-6-3&api_key=A1HU6rr2pWbHkkOh4HcfsgcVJpRB1Rwqkd3jd9vZ'
-
+  const APODImgLink = 'https://api.nasa.gov/planetary/apod?api_key=A1HU6rr2pWbHkkOh4HcfsgcVJpRB1Rwqkd3jd9vZ'
   useEffect(() => {
+    //Daily Img
+    axios.get(APODImgLink)
+    .then(resp => {
+      setdailyImg(resp.data)
+    })
+    .catch(err => {
+      //if no more get request use backup data
+      setdailyImg(BackupDailyImg)
+    })
+
+    //Mars imgs
     axios.get(marsImgsLink)
       .then(resp => {
-        console.log(resp.data.photos)
-        // setImgsCollection(resp.data.photos)
+        setImgsCollection(resp.data.photos)
       })
-      .catch((err) => {
-        debugger
+      .catch(err => {
+        //if no more get request use backup data
+        setImgsCollection(marsPhotos)
       })
-  })
 
- 
+  }, [])
 
-  // function pickImgFromCollection() {
-  //   return (
-  //     //react knows how to unpack an array automatically 
-  //     imgsCollection.map((photo) => {
-  //       return <img src={photo.img_src} alt='Previos Nasa daily' key={photo.id}></img>
-  //     })
-  //   )
-  // }
+
+  function pickImgFromCollection() {
+    return (
+      //react knows how to unpack an array automatically 
+      imgsCollection.map((photo) => {
+        return <img src={photo.img_src} alt='Previos Nasa daily' key={photo.id}></img>
+      })
+    )
+  }
 
   return (
     <div className="App">
-      <EveryDayImg url={nasaEveryImgURL} />
-      {/* <OtherImgs pickImgFromCollection = {pickImgFromCollection} /> */}
+      {dailyImg ? <EveryDayImg url={dailyImg.url} title={dailyImg.title}/> : null}
+      {imgsCollection && <OtherImgs pickImgFromCollection = {pickImgFromCollection} />}
+      
       <Footer />
     </div>
   )
