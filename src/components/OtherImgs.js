@@ -6,5 +6,5 @@ console.log(pickImgFromCollection())
         <div className = 'imgs-collection' >
             {pickImgFromCollection()}
         </div>
-        
+    )    
 }
