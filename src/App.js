@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios'
-import "./App.css";
+import styled from 'styled-components'
+import "./App.css"
+
 //components
 import EveryDayImg from './components/EveryDayImg'
 import OtherImgs from './components/OtherImgs'
@@ -9,6 +11,11 @@ import Footer from "./components/footer"
 //backup data
 import marsPhotos from './backup-data/mars-photos'
 import BackupDailyImg from './backup-data/Daily-Pod-Img'
+
+const Styles = styled.div`
+  
+`
+
 function App() {
  
   const [imgsCollection, setImgsCollection] = useState([])
@@ -50,12 +57,14 @@ function App() {
   }
 
   return (
-    <div className="App">
-      {dailyImg ? <EveryDayImg url={dailyImg.url} title={dailyImg.title}/> : null}
-      {imgsCollection && <OtherImgs pickImgFromCollection = {pickImgFromCollection} />}
-      
-      <Footer />
-    </div>
+    <Styles >
+      <div className="App">
+        {dailyImg ? <EveryDayImg url={dailyImg.url} title={dailyImg.title}/> : null}
+        {imgsCollection && <OtherImgs pickImgFromCollection = {pickImgFromCollection} />}
+        
+        <Footer />
+      </div>
+    </Styles>
   )
 }
 
