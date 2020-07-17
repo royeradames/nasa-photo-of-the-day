@@ -5,6 +5,7 @@ const Styles = styled.div`
   width: 100vw;
 
   img{
+      height: 100%;
     background-size:cover;
   }
 `
@@ -12,10 +13,8 @@ const Styles = styled.div`
  export default function EveryDayImg({url, title}){
     
     return(
-    <Styles>
-        <div className='container-every-day-img'>
+        <Styles className='container-every-day-img'>
             <img src={url} alt={title} ></img>
-        </div>
-    </Styles>
+        </Styles>
     )
 }

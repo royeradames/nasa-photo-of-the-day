@@ -59,7 +59,7 @@ function App() {
   return (
     <Styles >
       <div className="App">
-        {dailyImg ? <EveryDayImg url={dailyImg.url} title={dailyImg.title}/> : null}
+        {dailyImg ? <EveryDayImg url={dailyImg.url} title={dailyImg.title}/> : <h1>Loading</h1> }
         {imgsCollection && <OtherImgs pickImgFromCollection = {pickImgFromCollection} />}
         
         <Footer />
