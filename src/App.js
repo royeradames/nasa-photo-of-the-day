@@ -13,7 +13,11 @@ import marsPhotos from './backup-data/mars-photos'
 import BackupDailyImg from './backup-data/Daily-Pod-Img'
 
 const Styles = styled.div`
-  
+  #footer{
+    background-color: lightgray;
+    padding: 2rem;
+    font-size:1.6rem
+  }
 `
 
 function App() {
@@ -60,9 +64,9 @@ function App() {
     <Styles >
       <div className="App">
         {dailyImg ? <EveryDayImg url={dailyImg.url} title={dailyImg.title}/> : <h1>Loading</h1> }
-        {imgsCollection && <OtherImgs pickImgFromCollection = {pickImgFromCollection} />}
+        {imgsCollection ? <OtherImgs pickImgFromCollection = {pickImgFromCollection}  /> : <h1>Loading</h1>}
         
-        <Footer />
+        <Footer id='footer'/>
       </div>
     </Styles>
   )
